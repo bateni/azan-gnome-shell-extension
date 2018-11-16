@@ -218,10 +218,13 @@ const AzanPrefsWidget = new GObject.Class({
 
         let calculation_page = new PagePrefsGrid();
         calculation_page.add_combo('Calculation method', PrefsKeys.CALCULATION_METHOD, [
+	    {'title': 'Institute of Geophysics, University of Tehran', 'value': 'Tehran'},
+	    {'title': 'Shia Ithna-Ashari, Leva Institute, Qum', 'value': 'Jafari'},
             {'title': 'Muslim World League', 'value': 'MWL'},
             {'title': 'Islamic Society of North America (ISNA)', 'value': 'ISNA'},
             {'title': 'Egyptian General Authority of Survey', 'value': 'Egypt'},
             {'title': 'Umm Al-Qura University, Makkah', 'value': 'Makkah'},
+	    {'title': 'University of Islamic Sciences, Karachi', 'value': 'Karachi'},
         ], 'string');
 
 
