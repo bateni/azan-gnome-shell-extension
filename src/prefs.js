@@ -186,8 +186,8 @@ const PagePrefsGrid = new GObject.Class({
 });
 
 const AzanPrefsWidget = new GObject.Class({
-    Name: 'Azan.Prefs.Widget',
-    GTypeName: 'AzanPrefsWidget',
+    Name: 'MyAzan.Prefs.Widget',
+    GTypeName: 'MyAzanPrefsWidget',
     Extends: Gtk.Box,
 
     _init: function(params) {

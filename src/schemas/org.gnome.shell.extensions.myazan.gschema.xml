@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="gnome-shell-extensions">
-  <schema path="/org/gnome/shell/extensions/azan/" id="org.gnome.shell.extensions.azan">
+  <schema path="/org/gnome/shell/extensions/myazan/" id="org.gnome.shell.extensions.myazan">
 
     <key type="s" name="calculation-method">
         <default>"MWL"</default>

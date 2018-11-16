@@ -35,12 +35,12 @@ const PrefsKeys = Extension.imports.prefs_keys;
 //     }});
 
 
-const Azan = new Lang.Class({
-    Name: 'Azan',
+const MyAzan = new Lang.Class({
+    Name: 'MyAzan',
   Extends: PanelMenu.Button,
 
   _init: function () {
-    this.parent(0.0, "Azan", false);
+    this.parent(0.0, "MyAzan", false);
     this.indicatorText = new St.Label({
       text: _("Loading..."),
       y_align: Clutter.ActorAlign.CENTER
@@ -307,17 +307,17 @@ const Azan = new Lang.Class({
   }
 });
 
-let azan;
+let myazan;
 
 function init() {
 }
 
 function enable() {
-  azan = new Azan;
-  Main.panel.addToStatusArea('azan', azan);
+  myazan = new MyAzan;
+  Main.panel.addToStatusArea('myazan', myazan);
 }
 
 function disable() {
-  azan.stop();
-  azan.destroy();
+  myazan.stop();
+  myazan.destroy();
 }
