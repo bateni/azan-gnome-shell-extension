@@ -8,6 +8,7 @@ MKFILE_DIR := $(dir $(MKFILE_PATH))
 ABS_MKFILE_PATH := $(abspath $(MKFILE_PATH))
 ABS_MKFILE_DIR := $(abspath $(MKFILE_DIR))
 ABS_BUILDDIR=$(ABS_MKFILE_DIR)/$(BUILDDIR)
+INSTALL_DIR=~/.local/share/gnome-shell/extensions
 #=============================================================================
 default_target: all
 .PHONY: clean all zip
@@ -27,3 +28,7 @@ zip: all
 	(cd $(BUILDDIR)/$(UUID); \
          zip -rq $(ABS_BUILDDIR)/$(UUID).zip $(FILES:%=%); \
         );
+
+install: all
+	$(RM) -r $(INSTALL_DIR)/$(UUID)
+	cp -r $(ABS_BUILDDIR)/$(UUID) $(INSTALL_DIR)/
