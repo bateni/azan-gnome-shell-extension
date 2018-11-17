@@ -37,7 +37,7 @@ const PrefsKeys = Extension.imports.prefs_keys;
 
 const MyAzan = new Lang.Class({
     Name: 'MyAzan',
-  Extends: PanelMenu.Button,
+    Extends: PanelMenu.Button,
 
   _init: function () {
     this.parent(0.0, "MyAzan", false);
@@ -57,8 +57,8 @@ const MyAzan = new Lang.Class({
     this._opt_longitude = null;
     this._opt_timezone = null;
 
-      this._settings = Convenience.getSettings();
-      this._bindSettings();
+    this._settings = Convenience.getSettings();
+    this._bindSettings();
 
     this._dateFormatFull = _("%A %B %e, %Y");
 
@@ -170,6 +170,12 @@ const MyAzan = new Lang.Class({
             this._opt_timezone = settings.get_string(key);
             this._updateLabel();
         }));
+	// Initialize the settings by emitting fake "change" signals.
+	let allKeys = Object.keys(PrefsKeys);
+	for (let i = 0; i < allKeys.length; ++i) {
+	    key = PrefsKeys[allKeys[i]];
+	    this._settings.emit('changed::' + key, key);
+	}
     },
 
     _notify: function(title, message) {
@@ -178,12 +184,12 @@ const MyAzan = new Lang.Class({
         this._notifSource.notify(notification);
     },
 
-  _updateLabelPeriodic: function() {
+    _updateLabelPeriodic: function() {
       this._updateLabel();
       this._periodicTimeoutId = Mainloop.timeout_add_seconds(60, Lang.bind(this, this._updateLabelPeriodic));
   },
 
-  _updateLabel: function() {
+    _updateLabel: function() {
       let displayDate = GLib.DateTime.new_now_local();
       let dateFormattedFull = displayDate.format(this._dateFormatFull);
 
@@ -198,6 +204,8 @@ const MyAzan = new Lang.Class({
 
       let currentSeconds = this._calculateSecondsFromDate(currentDate);
 
+      global.logError("[Azan] Loc: " + myLocation + " TZ: " + myTimezone + " Method: " + this._opt_calculationMethod);
+	
       let timesStr = this._prayTimes.getTimes(currentDate, myLocation, myTimezone, 'auto', '24h');
       let timesFloat = this._prayTimes.getTimes(currentDate, myLocation, myTimezone, 'auto', 'Float');
 
