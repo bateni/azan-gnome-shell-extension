@@ -42,4 +42,4 @@ Licensed under the GNU General Public License, version 3
 
 - [PrayTimes.js](http://praytimes.org/manual/)
 - [HijriCalendar-Kuwaiti.js](http://www.al-habib.info/islamic-calendar/hijricalendar-kuwaiti.js)
-- [Azan](https://github.com/fahrinh/azan-gnome-shell-extension
+- [Azan](https://github.com/fahrinh/azan-gnome-shell-extension)
