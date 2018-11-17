@@ -270,6 +270,21 @@ const AzanPrefsWidget = new GObject.Class({
             {'title': 'GMT +12:00', 'value': '12'},
         ], 'string');
 
+        let display_page = new PagePrefsGrid();
+
+	display_page.add_boolean('Show weekday', PrefsKeys.WEEKDAY);
+
+	display_page.add_combo('Hour format', PrefsKeys.HOUR_FORMAT, [
+	    {'title': '24h', 'value': '24h'},
+	    {'title': '12h', 'value': '12h'},
+	], 'string');
+
+	display_page.add_combo('Which times?', PrefsKeys.CONCISE_LIST, [
+	    {'title': 'All times', 'value': 'all'},
+	    {'title': 'Combine prayers', 'value': 'combine'},
+	    {'title': 'Concise', 'value': 'concise'},
+	], 'string');
+
         let pages = [
             {
                 name: 'Calculation',
@@ -278,7 +293,11 @@ const AzanPrefsWidget = new GObject.Class({
             {
                 name: 'Your Location',
                 page: location_page
-            }
+            },
+	    {
+		name: 'Display',
+		page: display_page
+	    }
         ];
 
         return pages;

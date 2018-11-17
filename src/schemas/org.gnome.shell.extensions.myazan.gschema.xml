@@ -26,5 +26,20 @@
         <description>Timezone of your location</description>
     </key>
 
+    <key type="b" name="weekday">
+      <default>true</default>
+      <summary>Show weekday</summary>
+    </key>
+
+    <key type="s" name="hour-format">
+      <default>"24h"</default>
+      <summary>Hour format</summary>
+    </key>
+
+    <key type="s" name="concise-list">
+      <default>"all"</default>
+      <summary>Which times to show</summary>
+    </key>
+
   </schema>
 </schemalist>

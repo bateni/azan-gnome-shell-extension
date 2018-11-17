@@ -56,6 +56,9 @@ const MyAzan = new Lang.Class({
 	this._opt_latitude = null;
 	this._opt_longitude = null;
 	this._opt_timezone = null;
+	this._opt_weekday = null;
+	this._opt_hour_format = null;
+	this._opt_concise_list = null;
 	
 	this._settings = Convenience.getSettings();
 	this._bindSettings();
@@ -170,6 +173,18 @@ const MyAzan = new Lang.Class({
             this._opt_timezone = settings.get_string(key);
             this._updateLabel();
         }));
+        this._settings.connect('changed::' + PrefsKeys.WEEKDAY, Lang.bind(this, function(settings, key) {
+            this._opt_weekday = settings.get_boolean(key);
+            this._updateLabel();
+        }));
+        this._settings.connect('changed::' + PrefsKeys.HOUR_FORMAT, Lang.bind(this, function(settings, key) {
+            this._opt_hour_format = settings.get_string(key);
+            this._updateLabel();
+        }));
+        this._settings.connect('changed::' + PrefsKeys.CONCISE_LIST, Lang.bind(this, function(settings, key) {
+            this._opt_concise_list = settings.get_string(key);
+            this._updateLabel();
+        }));
 	// Initialize the settings by emitting fake "change" signals.
 	let allKeys = Object.keys(PrefsKeys);
 	for (let i = 0; i < allKeys.length; ++i) {
@@ -204,9 +219,9 @@ const MyAzan = new Lang.Class({
 
 	let currentSeconds = this._calculateSecondsFromDate(currentDate);
 
-	global.logError("[Azan] Loc: " + myLocation + " TZ: " + myTimezone + " Method: " + this._opt_calculationMethod);
+//	global.logError("[Azan] Loc: " + myLocation + " TZ: " + myTimezone + " Method: " + this._opt_calculationMethod);
 	
-	let timesStr = this._prayTimes.getTimes(currentDate, myLocation, myTimezone, 'auto', '24h');
+	let timesStr = this._prayTimes.getTimes(currentDate, myLocation, myTimezone, 'auto', this._opt_hour_format);
 	let timesFloat = this._prayTimes.getTimes(currentDate, myLocation, myTimezone, 'auto', 'Float');
 	
 	let nearestPrayerId;
@@ -304,7 +319,12 @@ const MyAzan = new Lang.Class({
     },
 
     _formatHijriDate: function(hijriDate) {
-	return this._dayNames[hijriDate[4]] + ", " + hijriDate[5] + " " + this._monthNames[hijriDate[6]] + " " + hijriDate[7];
+	let formatted_date = '';
+	if (this._opt_weekday) {
+	    formatted_date = this._dayNames[hijriDate[4]] + ", ";
+	}
+	formatted_date += hijriDate[5] + " " + this._monthNames[hijriDate[6]] + " " + hijriDate[7];
+	return formatted_date;
     },
 
     stop: function () {
