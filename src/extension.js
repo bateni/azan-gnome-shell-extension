@@ -261,45 +261,39 @@ const MyAzan = new Lang.Class({
 	let minDiffMinutes = Number.MAX_VALUE;
 	let isTimeForPraying = false;
 	for (let prayerId in this._timeNames) {
-
             let prayerName = this._timeNames[prayerId];
             let prayerTime = timesStr[prayerId];
 
             this._prayItems[prayerId].label.text = prayerTime;
 
-            if (this._isPrayerTime(prayerId)) {
+            if (this._isPrayerTime(prayerId) && this._isVisiblePrayer(prayerId)) {
 
 		let prayerSeconds = this._calculateSecondsFromHour(timesFloat[prayerId]);
 
 		let ishaSeconds = this._calculateSecondsFromHour(timesFloat['isha']);
 		let fajrSeconds = this._calculateSecondsFromHour(timesFloat['fajr']);
 
-		if (prayerId === 'fajr' && currentSeconds > ishaSeconds) {
-                    prayerSeconds = fajrSeconds + (24 * 60 *60);
+		let diffSeconds = prayerSeconds - currentSeconds;
+		if (diffSeconds < 0) {
+		    diffSeconds += (24 * 60 * 60);
 		}
 
-		let diffSeconds = prayerSeconds - currentSeconds;
+                let diffMinutes = ~~(diffSeconds / 60);
 
-		if (diffSeconds > 0) {
-                    let diffMinutes = ~~(diffSeconds / 60);
-		    
-                    if (diffMinutes == 0) {
-			isTimeForPraying = true;
-			nearestPrayerId = prayerId;
-			break;
-                    } else if (diffMinutes <= minDiffMinutes) {
-			minDiffMinutes = diffMinutes;
-			nearestPrayerId = prayerId;
-                    }
+                if (diffMinutes == 0) {
+		    isTimeForPraying = true;
+		    nearestPrayerId = prayerId;
+		    break;
+                } else if (diffMinutes <= minDiffMinutes) {
+		    minDiffMinutes = diffMinutes;
+		    nearestPrayerId = prayerId;
+                }
 
                     // global.logError("prayerId: %s, diffSeconds: %s, diffMinutes: %s, minDiffMinutes: %s, isTimeForPraying: %s, nearestPrayerId: %s".format(
                     //     prayerId, diffSeconds, diffMinutes, minDiffMinutes, isTimeForPraying, nearestPrayerId
                     //     ));
-		}
-		
             }
 	};
-
 
 	let hijriDate = HijriCalendarKuwaiti.KuwaitiCalendar();
 	
