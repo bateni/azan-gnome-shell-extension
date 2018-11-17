@@ -280,9 +280,9 @@ const AzanPrefsWidget = new GObject.Class({
 	], 'string');
 
 	display_page.add_combo('Which times?', PrefsKeys.CONCISE_LIST, [
-	    {'title': 'All times', 'value': 'all'},
-	    {'title': 'Combine prayers', 'value': 'combine'},
-	    {'title': 'Concise', 'value': 'concise'},
+	    {'title': 'All times', 'value': '0'},
+	    {'title': 'Combine prayers', 'value': '1'},
+	    {'title': 'Concise', 'value': '2'},
 	], 'string');
 
         let pages = [

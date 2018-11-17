@@ -85,6 +85,18 @@ const MyAzan = new Lang.Class({
             isha: 'Isha',
             midnight: 'Midnight'
 	};
+
+	this._timeConciseLevels = {
+            imsak: 1,
+            fajr: 2,
+            sunrise: 2,
+            dhuhr: 2,
+            asr: 0,
+            sunset: 2,
+            maghrib: 2,
+            isha: 0,
+            midnight: 1
+	};
 	
 	this._prayItems = {};
 
@@ -120,7 +132,12 @@ const MyAzan = new Lang.Class({
             bin.add_actor(prayLabel);
 	    
             prayMenuItem.actor.add_actor(bin);
-            
+
+//	    global.logError('[Azan] .hide: ' + prayMenuItem.hide);
+//	    global.logError('[Azan] all: ' + prayMenuItem);
+//	    global.logError('[Azan] list: ' + Object.getOwnPropertyNames(prayMenuItem));
+//	    global.logError('[Azan] chain: ' + Object.keys(prayMenuItem));
+//	    prayMenuItem.actor.hide();
             //==============================
             // let prayLabel = new St.Label();
             // prayMenuItem.actor.add_actor(prayLabel, {align: St.Align.END});
@@ -149,7 +166,7 @@ const MyAzan = new Lang.Class({
 	}));
 
 	this._updateLabelPeriodic();
-
+	this._updatePrayerVisibility();
 
 	// this._notifSource = new MessageTray.SystemNotificationSource();
 	// Main.messageTray.add(this._notifSource);
@@ -182,8 +199,10 @@ const MyAzan = new Lang.Class({
             this._updateLabel();
         }));
         this._settings.connect('changed::' + PrefsKeys.CONCISE_LIST, Lang.bind(this, function(settings, key) {
-            this._opt_concise_list = settings.get_string(key);
-            this._updateLabel();
+//	    global.logError('[Azan] Salam change: ' + key);
+            this._opt_concise_list = Number(settings.get_string(key));
+//	    global.logError('[Azan] parsed: ' + this._opt_concise_list);
+	    this._updatePrayerVisibility();
         }));
 	// Initialize the settings by emitting fake "change" signals.
 	let allKeys = Object.keys(PrefsKeys);
@@ -191,6 +210,20 @@ const MyAzan = new Lang.Class({
 	    key = PrefsKeys[allKeys[i]];
 	    this._settings.emit('changed::' + key, key);
 	}
+    },
+
+    _updatePrayerVisibility : function () {
+//	global.logError('[Azan] updteViz ' + this._opt_concise_list);
+	for (let prayerId in this._timeNames) {
+//	    global.logError('[Azan] ' + prayerId + ' ' + this._timeConciseLevels[prayerId]);
+//	    this._prayItems[prayerId].menuItem.actor.hide();
+	    this._prayItems[prayerId].menuItem.actor.visible = this._isVisiblePrayer(prayerId);
+	}
+    },
+
+
+    _isVisiblePrayer : function(prayerId) {
+	return this._timeConciseLevels[prayerId] >= this._opt_concise_list;
     },
 
     _notify: function(title, message) {
