@@ -65,10 +65,11 @@ const MyAzan = new Lang.Class({
     this._prayTimes = new PrayTimes.PrayTimes('ISNA');   
 
 
-    this._dayNames = new Array("Ahad", "Ithnin", "Thulatha", "Arbaa", "Khams", "Jumuah", "Sabt");
-    this._monthNames = new Array("Muharram", "Safar", "Rabi'ul Awwal", "Rabi'ul Akhir",
-        "Jumadal Ula", "Jumadal Akhira", "Rajab", "Sha'ban",
-        "Ramadan", "Shawwal", "Dhul Qa'ada", "Dhul Hijja");
+    this._dayNames = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
+			       "Friday", "Saturday");
+    this._monthNames = new Array("Muḥarram", "Ṣafar", "Rabīʿ al-Awwal", "Rabī’ al-Thānī",
+				 "Jumādā al-Awwal", "Jumādā al-Thānī", "Rajab", "Sha’bān",
+				 "Ramaḍān", "Shawwāl", "Ḏū l-Qaʿdah", "Ḏū l-Ḥijja");
 
     this._timeNames = {
         imsak: 'Imsak',

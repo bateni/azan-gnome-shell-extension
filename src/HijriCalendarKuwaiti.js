@@ -1,4 +1,5 @@
-//source : http://www.al-habib.info/islamic-calendar/hijricalendar-kuwaiti.js
+// Source : http://www.al-habib.info/islamic-calendar/hijricalendar-kuwaiti.js
+// We do not use the output routine.
 
 function gmod(n, m) {
 	return ((n % m) + m) % m;
