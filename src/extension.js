@@ -273,7 +273,8 @@ const MyAzan = new Lang.Class({
             this.indicatorText.set_text(_("Now : " + this._timeNames[nearestPrayerId]));
 
 	} else {
-            this.indicatorText.set_text(this._timeNames[nearestPrayerId] + ' -' + this._formatRemainingTimeFromMinutes(minDiffMinutes));
+            this.indicatorText.set_text(this._formatRemainingTimeFromMinutes(minDiffMinutes)
+					+ ' to ' + this._timeNames[nearestPrayerId]);
 	}
 
     },
