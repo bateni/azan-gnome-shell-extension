@@ -61,8 +61,7 @@ const MyAzan = new Lang.Class({
 	this._opt_concise_list = null;
 	
 	this._settings = Convenience.getSettings();
-	this._bindSettings();
-	
+
 	this._dateFormatFull = _("%A %B %e, %Y");
 	
 	this._prayTimes = new PrayTimes.PrayTimes('ISNA');   
@@ -107,7 +106,6 @@ const MyAzan = new Lang.Class({
 	this.menu.addMenuItem(this._dateMenuItem);
 	
 	this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-
 
 	// this.menu.addMenuItem(this._dateMenuItem);
 	// this.menu.addMenuItem(new PopupMenu.PopupMenuItem(_("Fajr"), {
@@ -165,6 +163,7 @@ const MyAzan = new Lang.Class({
             Util.spawn(["gnome-shell-extension-prefs", Extension.metadata.uuid]);
 	}));
 
+	this._bindSettings();
 	this._updateLabelPeriodic();
 	this._updatePrayerVisibility();
 
@@ -207,7 +206,7 @@ const MyAzan = new Lang.Class({
 	// Initialize the settings by emitting fake "change" signals.
 	let allKeys = Object.keys(PrefsKeys);
 	for (let i = 0; i < allKeys.length; ++i) {
-	    key = PrefsKeys[allKeys[i]];
+	    let key = PrefsKeys[allKeys[i]];
 	    this._settings.emit('changed::' + key, key);
 	}
     },
@@ -253,6 +252,10 @@ const MyAzan = new Lang.Class({
 	let currentSeconds = this._calculateSecondsFromDate(currentDate);
 
 //	global.logError("[Azan] Loc: " + myLocation + " TZ: " + myTimezone + " Method: " + this._opt_calculationMethod);
+	if (this._opt_latitude == null || this._opt_longitude == null ||
+	    this._opt_timezone == null || this._opt_calculationMethod == null) {
+	    return;
+	}
 	
 	let timesStr = this._prayTimes.getTimes(currentDate, myLocation, myTimezone, 'auto', this._opt_hour_format);
 	let timesFloat = this._prayTimes.getTimes(currentDate, myLocation, myTimezone, 'auto', 'Float');

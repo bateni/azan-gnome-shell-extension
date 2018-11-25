@@ -33,7 +33,7 @@ Be careful.  The second step might delete your current extensions.  It is safer 
 
 - 0.1 : initial upload
 - 1.0 : this fork
-- 1.11 : adding new features (1-7)
+- 1.12 : adding new features (1-7)
 
 ### License
 
