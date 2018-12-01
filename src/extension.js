@@ -99,9 +99,19 @@ const MyAzan = new Lang.Class({
 	
 	this._prayItems = {};
 
+	// PopupMenuItem does not let us specify the alignment of the label
+	// So we hack it below
 	this._dateMenuItem = new PopupMenu.PopupMenuItem(_("TODO"), {
             reactive: true, hover: false, activate: false
 	});
+        let dateMenuItemBin = new St.Bin({
+	    x_align: St.Align.MIDDLE,
+	    x_expand: true
+        });
+	this._dateMenuItem.actor.remove_actor(this._dateMenuItem.label);
+        this._dateMenuItem.label = new St.Label({text: _("TODO")});
+        dateMenuItemBin.add_actor(this._dateMenuItem.label);
+        this._dateMenuItem.actor.add_actor(dateMenuItemBin);
 
 	this.menu.addMenuItem(this._dateMenuItem);
 	
@@ -303,8 +313,6 @@ const MyAzan = new Lang.Class({
 	let outputIslamicDate = this._formatHijriDate(hijriDate);
 
 	this._dateMenuItem.label.text = outputIslamicDate;
-
-	// this._dateLabel.text = outputIslamicDate;
 
 	// global.logError(Moment.moment().format('iYYYY/iM/iD'));
 
