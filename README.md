@@ -20,6 +20,7 @@ MyAzan is an Islamic prayer times extension for Gnome Shell (forked from [Azan](
 5. Fix bug for not properly saving location info
 6. Improve nearest prayer message in the header
 7. Complete list of available timezones
+8. Center alignment for date string
 
 ### Installation
 
@@ -33,7 +34,7 @@ Be careful.  The second step might delete your current extensions.  It is safer 
 
 - 0.1 : initial upload
 - 1.0 : this fork
-- 1.12 : adding new features (1-7)
+- 1.13 : adding new features (1-8)
 
 ### License
 
